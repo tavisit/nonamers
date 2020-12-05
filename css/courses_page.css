@@ -1,0 +1,41 @@
+/* Call To Action Section
+--------------------------------*/
+
+#courses_page_info {
+  background: linear-gradient(rgba(0, 142, 99, 0.1), rgba(0, 0, 0, 0.1)), url(../img/work.jpeg) fixed center center;
+  background-size: cover;
+  padding: 60px 0;
+}
+
+#courses_page_info h3 {
+  color: #000;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+#courses_page_info p {
+  color: #000;
+}
+
+#courses_page_info .cta-btn {
+  font-family: "Montserrat", sans-serif;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 1px;
+  display: inline-block;
+  padding: 8px 28px;
+  border-radius: 25px;
+  transition: 0.5s;
+  margin-top: 10px;
+  border: 2px solid #fff;
+  color: #fff;
+}
+
+#courses_page_info .cta-btn:hover {
+  background: #f9be20;
+  border: 2px solid #f9be20;
+}
+
+/* Call To Action Section
+--------------------------------*/
