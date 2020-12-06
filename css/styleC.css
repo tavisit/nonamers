@@ -1,0 +1,139 @@
+
+
+#courses_page_info {
+  background: linear-gradient(rgba(0, 142, 99, 0.1), rgba(0, 0, 0, 0.1));
+  background-size: cover;
+  padding: 60px 0;
+}
+
+#courses_page_info h3 {
+  color: #000;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+#courses_page_info p {
+  color: #000;
+}
+
+#courses_page_info .cta-btn {
+  font-family: "Montserrat", sans-serif;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 1px;
+  display: inline-block;
+  padding: 8px 28px;
+  border-radius: 25px;
+  transition: 0.5s;
+  margin-top: 10px;
+  border: 2px solid #fff;
+  color: #fff;
+}
+
+#courses_page_info .cta-btn:hover {
+  background: #f9be20;
+  border: 2px solid #f9be20;
+}
+
+
+
+
+
+.row {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+.mb-5, .my-5 {
+    margin-bottom: 3rem!important;
+}
+
+.col-xl-12
+{
+    position: relative;
+    width: 100%;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+
+
+.media-boxes {
+    max-width: 930px;
+    margin: 0 auto;
+	text-align: left;
+}
+
+.media-body { display: flex; }
+
+.media {
+	margin-bottom: 35px;
+    display: flex;
+    align-items: flex-start;
+	
+	font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+    font-size: 17px;
+    font-weight: 300;
+    color: #d82a18;
+	
+	
+	-webkit-tap-highlight-color: transparent;
+}
+
+
+
+::after, ::before {
+    box-sizing: border-box;
+}
+
+.tm-description-box { padding: 30px 35px; }
+.tm-text-blue { color: #000000; }
+.tm-text-blue-dark { color: #006699; }
+.tm-text-pink { color: #634902; }
+.tm-text-pink-dark { color: #CC6699; }
+.tm-text-white { color: #fff; }
+.tm-bg-gray { background-color: #F2F2F2; }
+.tm-bg-pink { background-color: #f9be20; }
+.tm-bg-yellow-light { background-color: #fcf7e8; }
+.tm-bg-yellow-light-2 { background-color: #f9be20; }
+.tm-bg-blue { background-color: #0081af; } 
+
+.tm-buy-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 140px;
+}
+.tm-buy {
+    font-weight: 400;
+    width: 100%;
+    padding: 20px 45px;
+}
+.tm-bg-blue.tm-buy:hover,
+.tm-bg-blue.tm-buy:focus {
+    color: white;
+    background-color: #016a8f; 
+}
+
+.tm-bg-pink.tm-buy:hover,
+.tm-bg-pink.tm-buy:focus {
+    background-color: #ebab00;
+    color: white;
+}
+
+.tm-price-tag {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 400;
+}
