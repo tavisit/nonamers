@@ -1,15 +1,15 @@
 document.write('\
 <div class="form-popup" id="myForm" style="background-color: #000;">\
-    <form action="/action_page.php" class="form-container">\
+    <form action="./include/login.inc.php" class="form-container" method="POST">\
       <h1>Login</h1>\
   \
       <label for="email"><b>Email</b></label>\
-      <input type="text" placeholder="Enter Email" name="email" required>\
+      <input type="text" placeholder="Email" name="uid" required>\
   \
       <label for="psw"><b>Password</b></label>\
-      <input type="password" placeholder="Enter Password" name="psw" required>\
+      <input type="password" placeholder="Parola " name="psw" required>\
   \
-      <button type="submit" class="btn" style = "color:#fff">Login</button>\
+      <input type="submit" class="btn" style = "color:#fff" name="submit" value="Login">\
       <button type="submit" class="btn cancel" onclick="closeForm()"style = "color:#fff">Close</button>\
     </form>\
   </div>\
@@ -19,19 +19,29 @@ document.write('\
 \
   <div class="form-popup" id="myForm_register" style="background-color: #000;">\
     \
-    <form action="/action_page.php" class="form-container">\
+    <form action="./include/signup.inc.php" class="form-container" method="POST">\
       <h1>Register</h1>\
   \
-      <label for="email"><b>Email</b></label>\
-      <input type="text" placeholder="Enter Email" name="email" required>\
+      <label for="first"><b>Prenume</b></label>\
+      <input type="text" placeholder="prenume" name="first" required>\
   \
-      <label for="psw"><b>Password</b></label>\
-      <input type="password" placeholder="Enter Password" name="psw" required>\
+    \
+      <label for="email"><b>Nume</b></label>\
+      <input type="text" placeholder="Nume" name="last" required>\
+  \
+      <label for="email"><b>Email</b></label>\
+      <input type="text" placeholder="Email" name="email" required>\
+  \
+      <label for="email"><b>Username</b></label>\
+      <input type="text" placeholder="User" name="uid" required>\
+  \
+      <label for="psw"><b>Parola</b></label>\
+      <input type="password" placeholder="Parola" name="psw" required>\
 \
-      <label for="psw"><b>Again Password</b></label>\
-      <input type="password" placeholder="Enter Password" name="psw" required>\
+      <label for="psw"><b>Validare</b></label>\
+      <input type="password" placeholder="Parola" name="psw2" required>\
 \
-      <button type="submit" class="btn" style = "color:#fff">Register</button>\
+      <input type="submit" class="btn" style = "color:#fff" name="submit" value ="Register">\
       <button type="submit" class="btn cancel" onclick="closeForm_reg()"style = "color:#fff">Close</button>\
     </form>\
   \

@@ -3,7 +3,7 @@
 	 session_start();
 	 session_unset();
 	 session_destroy();//delogarea utilizatorului
-	 header("Location: ../index.php");
+	 header("Location: ../index.html");
 	 exit();
  //}
  ?>

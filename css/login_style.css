@@ -18,9 +18,9 @@
 }
 /* Add styles to the form container */
 .form-container {
-margin-left: 42.5%;
-margin-top:5%;
-  max-width: 300px;
+margin-left: 35%;
+margin-top:2%;
+  max-width: 450px;
   padding: 10px;
   background-color: white;
 }
@@ -28,7 +28,7 @@ margin-top:5%;
 .form-container input[type=text], .form-container input[type=password] {
     
     font-family: "Montserrat", sans-serif;
-  width: 100%;
+  width: 30%;
   padding: 15px;
   margin: 5px 0 22px 0;
   border: none;
