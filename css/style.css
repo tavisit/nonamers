@@ -1323,13 +1323,18 @@ body.mobile-nav-active #mobile-nav-toggle {
   font-size: 13px;
 }
 
-#contact .form input,
-#contact .form textarea {
+#contact .form input{
   padding: 10px 14px;
   border-radius: 0;
   box-shadow: none;
   font-size: 15px;
 }
+#contact .form textarea {
+  padding: 10px 14px;
+  width:80%;
+  border-radius: 0;
+  box-shadow: none;
+  font-size: 15px;
 
 #contact .form button[type="submit"] {
   background: #f9be20;
