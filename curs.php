@@ -1,8 +1,116 @@
+<?php
+		if(isset($_GET['id']))
+		{
+			include_once 'include/dbh.inc.php';
+			$id = $_GET['id'];
+			if (!get_magic_quotes_gpc())
+			{
+				$id = addslashes($id);
+			}
+			$query = "SELECT * from courses,users WHERE id_prof = user_id AND id_course = $id";
+			$result = mysqli_query($conn,$query);
+			
+			if(!$result)
+			{
+				echo mysqli_errno($conn)." Introdu date valide";
+				exit();
+			}
+			
+			$resultCheck = mysqli_num_rows($result);
+			if(!$resultCheck){
+				echo 'Nu exista cursuri';
+				exit();
+			}
+			else
+			{
+				while($row=mysqli_fetch_assoc($result))
+				{
+					$nume = $row['fname'].' '.$row['lname'];
+					$pret = $row['pret'];
+					$descriere = $row['detalii'];
+					$durata = $row['durata'];
+					$src = $row['img_src'];
+					$title = $row['title'];
+				}
+			}
+			$query = "SELECT count(*) as count,completed  from courses_student WHERE id_course = $id GROUP BY completed ";
+			$result = mysqli_query($conn,$query);
+			
+			if(!$result)
+			{
+				echo mysqli_errno($conn)." Introdu date valide";
+				exit();
+			}
+			
+			$resultCheck = mysqli_num_rows($result);
+			if(!$resultCheck){
+				$completed = 0; 
+				$using = 0;
+			}
+			else
+			{
+				while($row=mysqli_fetch_assoc($result))
+				{
+					if($row['completed'] == 1)
+						$completed = $row['count'];
+					else
+						$using = $row['count'];
+				}
+			}
+			$query = "SELECT * from courses,categories WHERE courses.id_category = categories.id_category AND id_course = $id";
+			$result = mysqli_query($conn,$query);
+			
+			if(!$result)
+			{
+				echo mysqli_errno($conn)." Introdu date valide";
+				exit();
+			}
+			
+			$resultCheck = mysqli_num_rows($result);
+			if(!$resultCheck){
+				echo 'Nu exista cursuri';
+				exit();
+			}
+			else
+			{
+				while($row=mysqli_fetch_assoc($result))
+				{
+					$category = $row['name'];
+				}
+			}
+			$query = "SELECT count(*) as count,completed  from courses_student WHERE id_course = $id GROUP BY completed ";
+			$result = mysqli_query($conn,$query);
+			
+			if(!$result)
+			{
+				echo mysqli_errno($conn)." Introdu date valide";
+				exit();
+			}
+			
+			$resultCheck = mysqli_num_rows($result);
+			if(!$resultCheck){
+				$completed = 0; 
+				$using = 0;
+			}
+			else
+			{
+				while($row=mysqli_fetch_assoc($result))
+				{
+					if($row['completed'] == 1)
+						$completed = $row['count'];
+					else
+						$using = $row['count'];
+				}
+			}
+		}
+		else
+			header("Location:index.html");
+	  ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Skilly C1</title>
+  <title>Skilly C5</title>
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta content="" name="keywords">
   <meta content="" name="description">
@@ -28,7 +136,7 @@
   <!-- Main Stylesheet File -->
   <link href="css/style.css" rel="stylesheet">
   <link href="css/courses_page.css" rel="stylesheet">
-  
+  <link href="css/login_style.css" rel="stylesheet">  
   <!-- =======================================================
     Theme Name: Skilly
     Theme URL: https://bootstrapmade.com/Skilly-bootstrap-business-template/
@@ -38,45 +146,39 @@
 </head>
 
 <body>
-
+	
+    <script src="js/write_login_register.js"></script>
   <!--==========================
     Header
   ============================-->
-  <header id="header">
+ <header id="header" class='header-scrolled'>
     <div class="container-fluid">
 
       <div id="logo" class="pull-left">
-        <h1><a href="#intro" class="scrollto">Skilly</a></h1>
+        <h1><a href="index.html" class="scrollto">Skilly</a></h1>
         <!-- Uncomment below if you prefer to use an image logo -->
         <!-- <a href="#intro"><img src="img/logo.png" alt="" title="" /></a>-->
       </div>
-      <!--
+      
       <nav id="nav-menu-container">
         <ul class="nav-menu">
-          <li class="menu-active"><a href="#intro">Home</a></li>
-          <li><a href="#about">About Us</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#portfolio">Portfolio</a></li>
-          <li><a href="#team">Team</a></li>
-          <li class="menu-has-children"><a href="">Drop Down</a>
-            <ul>
-              <li><a href="#">Drop Down 1</a></li>
-              <li><a href="#">Drop Down 3</a></li>
-              <li><a href="#">Drop Down 4</a></li>
-              <li><a href="#">Drop Down 5</a></li>
-            </ul>
-          </li>
-          <li><a href="#contact">Contact</a></li>
+          <li><a href="index.html">Home</a></li>
+          <li class="menu-active"><a href="courses.php">Cursuri</a></li>
+          <li><a href="profil elev.html">Profil</a></li>
+          <li><a href="profil profesor.html">Profil</a></li>
+		  <li><button class="open-button" onclick="openForm()">LOGARE</button></li>
+          <li><button class="open-button" onclick="openForm_reg()">ÎNREGISTRARE</button></li>
         </ul>
-      </nav>-->
+
+        
+      </nav>
     </div>
   </header><!-- #header -->
-
+  
   <!--==========================
     Intro Section
   ============================-->
   <main id="main">
-
     <!--==========================
       Featured Services Section
     ============================-->
@@ -84,14 +186,22 @@
       <div style = "height:100px; margin:auto;">
       </div>
 </div>
-    <div style = "background-image: url('img/header.jpeg');background-color: rgba(255,255,255,0.6);background-blend-mode: lighten;">
-          <header class="section-header">
-            <h3><br><br>How to cross your eyes like a pro</h3>
-            <p style = "font-weight: bold; font-size: 25px;">Light Course - Free</p>
+    <div style = "background-image: url('<?php echo $src?>');background-color: rgba(255,255,255,0.6);background-size : 100% 100%;background-blend-mode: lighten;">
+          <header class="section-header" style="height : 400px">
+            <h3><br><br><?php echo $title ?></h3>
+            <p style = "font-weight: bold; font-size: 25px;"><?php
+			if($pret == 0 )
+				echo "Curs light - gratuit";
+			else
+				if($pret > 0  and $pret < 100)
+					echo "Curs standard - $pret lei";
+				else
+					echo "Curs premium -$pret lei";
+			?></p>
               <div class="container">
         
                 <header class="section-header wow fadeInUp">
-                  <h3><a href="">I am ready to learn!!</a></h3>
+                  <h3><a href="aplicare.html">Vreau sa invat!!</a></h3>
                 </header>
         
               </div>
@@ -103,20 +213,20 @@
 
           <div class="col-lg-4 box">
             <i class="ion-ios-bookmarks-outline"></i>
-            <h4 class="title"><a href="">Who am I?</a></h4>
-            <p class="description">The description of the teacher</p>
+            <h4 class="title"><a href="">Cine sunt?</a></h4>
+            <p class="description"><?php echo $nume ?></p>
           </div>
 
           <div class="col-lg-4 box box-bg">
             <i class="ion-ios-stopwatch-outline"></i>
-            <h4 class="title" style = "color:#fff">How long?</h4>
-            <p class="description">Well, here it is the duration of the course</p>
+            <h4 class="title" style = "color:#fff">Cat va dura?</h4>
+            <p class="description">Va dura <?php echo $durata ?></p>
           </div>
 
           <div class="col-lg-4 box">
             <i class="ion-ios-heart-outline"></i>
-            <h4 class="title"style = "color:#fff">What will you learn?</a></h4>
-            <p class="description">Interesting stuff, maybe useful stuff...well...why are you still here?</p>
+            <h4 class="title"style = "color:#fff">Categorie</a></h4>
+            <p class="description"><?php echo $category?></p>
           </div>
 
         </div>
@@ -132,19 +242,61 @@
           <div class="container">
     
             <header class="section-header">
-              <h3>About this course</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sem diam, elementum vel lacus vitae, varius viverra lorem. Mauris blandit eros quis sollicitudin consectetur. Integer vitae euismod sapien, quis facilisis tortor. Praesent quis viverra felis, at lacinia purus. Vestibulum non urna tincidunt, posuere purus sed, sollicitudin erat. Proin blandit purus eu sem condimentum tristique. Quisque malesuada urna sit amet eros congue aliquam. Ut facilisis fermentum neque sit amet tristique. Praesent eget justo eu justo pulvinar faucibus id non ipsum. Proin a metus ac metus consectetur dignissim.</p>
-              <p>Nulla vel maximus mi. Pellentesque sed leo vitae massa sodales rhoncus. Pellentesque eu consequat diam. Sed risus enim, aliquam eget maximus id, lobortis vitae ipsum. In ac urna elementum, aliquet lorem eget, lacinia diam. Ut lacinia maximus interdum. Nunc eleifend hendrerit enim, ut interdum arcu pellentesque et. Aliquam sed mattis felis, vel porta erat. Phasellus at ligula sed lorem faucibus efficitur. Nam quam libero, fringilla ut maximus nec, auctor eu purus. Nulla id magna facilisis, porttitor est sit amet, facilisis tellus.</p>
-              <p>Morbi non vehicula tortor, et finibus ipsum. Morbi in purus nulla. Proin posuere urna libero, at sollicitudin ante elementum nec. Nunc et enim eros. Suspendisse lobortis nulla at dui faucibus, eu fringilla nisl iaculis. Curabitur a congue neque, sed blandit diam. Suspendisse vehicula dui eget est malesuada, ut finibus sapien rutrum. Cras convallis eleifend neque at vehicula.</p>
+              <h3>Despre acest curs</h3>
+              <p><?php echo $descriere ?></p>
+            </header>
+			<header class="section-header">
+              <h3>Skills</h3>
+              <ul style="list-style-type:none;">
+				<?php
+				$id = $_GET['id'];
+				if (!get_magic_quotes_gpc())
+				{
+					$id = addslashes($id);
+				}
+				$query = "SELECT * from courses_skills,skills WHERE courses_skills.id_course = $id AND courses_skills.id_skill = skills.id_skill";
+				$result = mysqli_query($conn,$query);
+				
+				if(!$result)
+				{
+					echo mysqli_errno($conn)." Introdu date valide";
+					exit();
+				}
+				
+				$resultCheck = mysqli_num_rows($result);
+				if(!$resultCheck){
+					echo 'Nu exista skills';
+				}
+				else
+				{
+					while($row=mysqli_fetch_assoc($result))
+					{
+						echo "<li>$row[name]</li>";
+					}
+				}
+				
+                ?>
+              </ul>
+              
+            </header>
+            <header class="section-header">
+              <h3>De pus in CV</h3>
+              <ul style="list-style-type:none;">
+                <li>Acest curs garanteaza primirea unei diplome ce va putea fi utilizata in domeniul IT, in profesiile:</li>
+                <li>QA tester for Google</li>
+                <li>QA tester for Bosch</li>
+                <li>QA tester for Facebook</li>
+              </ul>
+              
             </header>
             <header class="section-header wow fadeInUp">
               <h3>
-                <p>The rating of this particular course is:</p>
+                <p>Cat de bun a fost acest curs:</p>
                 <span class="fa fa-star" style = "color: orange;"></span>
                 <span class="fa fa-star" style = "color: orange;"></span>
                 <span class="fa fa-star" style = "color: orange;"></span>
                 <span class="fa fa-star" style = "color: orange;"></span>
-                <span class="fa fa-star"></span>
+                <span class="fa fa-star" style = "color: orange;"></span>
               </h3>
             </header>
             
@@ -157,20 +309,20 @@
           <div class="container">
     
             <header class="section-header">
-              <h3>Clients</h3>
-              <p>What do the statistics say?</p>
+              <h3>Clientii</h3>
+              <p>Ce spun statisticile despre cursul meu?</p>
             </header>
     
             <div class="row counters">
               <div class="col-lg-3 col-6 text-center">
               </div>
               <div class="col-lg-3 col-6 text-center">
-                <span data-toggle="counter-up">274</span>
-                <p>Finished courses</p>
+                <span data-toggle="counter-up"><?php echo $completed?></span>
+                <p>Cursuri terminate</p>
               </div>
               <div class="col-lg-3 col-6 text-center">
-                <span data-toggle="counter-up">17</span>
-                <p>Ongoing</p>
+                <span data-toggle="counter-up"><?php echo $using ?></span>
+                <p>Cursuri in desfasurare</p>
               </div>
               
             </div>
@@ -187,7 +339,7 @@
           <div class="container">
     
             <header class="section-header wow fadeInUp">
-              <h3><a href="">I am ready to learn!!</a></h3>
+              <h3><a href="aplicare.html">Vreau sa invat!!</a></h3>
             </header>
     
           </div>
@@ -200,38 +352,20 @@
       </div>
     </section><!-- #courses_page_info -->
     
-  <!--==========================
-    Footer
-  ============================-->
   <footer id="footer">
     <div class="footer-top">
       <div class="container">
         <div class="row">
 
-          <div class="col-lg-3 col-md-6 footer-info">
+          <div class="col-lg-4 col-md-6 footer-info">
             <h3>Skilly</h3>
-            <p>Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada terra videa magna derita valies darta donna mare fermentum iaculis eu non diam phasellus. Scelerisque felis imperdiet proin fermentum leo. Amet volutpat consequat mauris nunc congue.</p>
+            <p>Ne unește pe timp de pandemie.</p>
           </div>
-
-          <div class="col-lg-3 col-md-6 footer-links">
-            <h4>Useful Links</h4>
-            <ul>
-              <li><i class="ion-ios-arrow-right"></i> <a href="#">Home</a></li>
-              <li><i class="ion-ios-arrow-right"></i> <a href="#">About us</a></li>
-              <li><i class="ion-ios-arrow-right"></i> <a href="#">Services</a></li>
-              <li><i class="ion-ios-arrow-right"></i> <a href="#">Terms of service</a></li>
-              <li><i class="ion-ios-arrow-right"></i> <a href="#">Privacy policy</a></li>
-            </ul>
-          </div>
-
-          <div class="col-lg-3 col-md-6 footer-contact">
-            <h4>Contact Us</h4>
+          <div class="col-lg-4 col-md-6 footer-contact">
+            <h4>Contact</h4>
             <p>
-              A108 Adam Street <br>
-              New York, NY 535022<br>
-              United States <br>
-              <strong>Phone:</strong> +1 5589 55488 55<br>
-              <strong>Email:</strong> info@example.com<br>
+              <strong>Phone:</strong>0762511992<br>
+              <strong>Email:</strong>skilly@pandemic.com<br>
             </p>
 
             <div class="social-links">
@@ -244,9 +378,8 @@
 
           </div>
 
-          <div class="col-lg-3 col-md-6 footer-newsletter">
-            <h4>Our Newsletter</h4>
-            <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna veniam enim veniam illum dolore legam minim quorum culpa amet magna export quem marada parida nodela caramase seza.</p>
+          <div class="col-lg-4 col-md-6 footer-newsletter">
+            <h4>Abonează-te</h4>
             <form action="" method="post">
               <input type="email" name="email"><input type="submit"  value="Subscribe">
             </form>
@@ -261,13 +394,7 @@
         &copy; Copyright <strong>Skilly</strong>. All Rights Reserved
       </div>
       <div class="credits">
-        <!--
-          All the links in the footer should remain intact.
-          You can delete the links only if you purchased the pro version.
-          Licensing information: https://bootstrapmade.com/license/
-          Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Skilly
-        -->
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        
       </div>
     </div>
   </footer><!-- #footer -->
@@ -295,6 +422,7 @@
 
   <!-- Template Main Javascript File -->
   <script src="js/main.js"></script>
+  <script src="js/login.js"></script>
 
 </body>
 </html>

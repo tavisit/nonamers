@@ -92,7 +92,10 @@
     box-sizing: border-box;
 }
 
-.tm-description-box { padding: 30px 35px; }
+.tm-description-box { 
+	padding: 30px 35px;
+	width:80%;
+}
 .tm-text-blue { color: #000000; }
 .tm-text-blue-dark { color: #006699; }
 .tm-text-yellow { color: #634902; }
@@ -109,7 +112,6 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    width: 140px;
 }
 .tm-buy {
     font-weight: 400;
